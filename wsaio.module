@@ -11,7 +11,11 @@ function wsaio_permission() {
     'whatserveramion' =>  array(
       'title' => t('See servername in title'),
       'restrict access' => TRUE,
-      )
+      ),
+    'whatserveramion_admin' => array(
+      'title' =>('Administer What Server am I on (WSAIO) options '),
+      'restrict access' => TRUE,
+      ),
     );
 
 }
@@ -23,8 +27,68 @@ function wsaio_page_alter(&$page) {
 
   // ensure user is logged in and that
   if (user_access('whatserveramion')) {
-    drupal_set_title('[' . gethostname() . '] : ' . drupal_get_title());
+    $failover_server    = variable_get('wasio_failover_server_name', '');
+    $production_server  = trim(variable_get('wasio_production_server_name', ''));
+    $this_server        = trim(gethostname());
+
+    /*
+    Can we find the substring of our host name inside the failover list. But don
+    not warn if the production server host name and current server host name are
+    identical
+    */
+    if (substr_count($failover_server, $this_server)) {
+      if ($production_server != $this_server) {
+        drupal_set_message('You are on server: [' . gethostname() . ']');
+      }
+    }
+
+
+
   }
 
+
+}
+
+/**
+ * Implements hook_menu().
+ */
+function wsaio_menu() {
+  $items['admin/config/soc/wsaio'] = array(
+    'title' => 'What Server Am I On (Options Page)',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('_wasio_settings'),
+    'access arguments' => array('whatserveramion_admin'),
+
+    );
+
+  return $items;
+}
+
+/*
+Settings Menu
+*/
+function _wasio_settings() {
+ $form = array();
+
+ $form['wasio_production_server_name'] = array(
+   '#type' => 'textfield',
+   '#title' => t('Production server host name'),
+   '#default_value' => variable_get('wasio_production_server_name', gethostname()),
+   '#size' => 60,
+   '#maxlength' => 128,
+   '#required' => TRUE,
+   );
+
+ $form['wasio_failover_server_name'] = array(
+   '#type' => 'textfield',
+   '#title' => t('Warn content editor on this server hostname'),
+   '#default_value' => variable_get('wasio_failover_server_name', gethostname()),
+   '#size' => 60,
+   '#maxlength' => 128,
+   '#required' => TRUE,
+   );
+
+
+ return system_settings_form($form);
 
 }
