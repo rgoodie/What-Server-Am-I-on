@@ -8,4 +8,14 @@ If your load balancer fails over to another production server and your database 
 
 How
 ----
-Clone the repo into /sites/all/modules, enable the module, and set the permissions. 
+- Clone the repo into /sites/all/modules/, 
+- Enable the module
+- Name the production and failover server hostnames* [ /admin/config/soc/wsaio ] 
+
+
+
+Errata and footnotes
+------
+* You can find your hostname by typing `hostname` directly into your terminal (mac, linux, or windows using cygwin)
+
+
