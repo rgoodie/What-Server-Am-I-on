@@ -1,5 +1,5 @@
 What
-===================
+----
 Appends the server name to the browser title bar. Useful if editing a Drupal installation that sites on a load balancer with a primary production and a secondary fail over production boxes joined with one-way database replication.
 
 Why
