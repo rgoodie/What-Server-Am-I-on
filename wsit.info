@@ -1,0 +1,4 @@
+name = What server is this?
+description = Notifies content editors of the server name. Important if you use load balancers or other infrastructure strategies
+package = SoC
+core = 7.x
