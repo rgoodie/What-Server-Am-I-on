@@ -6,7 +6,7 @@
  */
 
 
-function wsit_permission() {
+function wsaio_permission() {
   return array(
     'whatserveramion' =>  array(
       'title' => t('See servername in title'),
@@ -19,7 +19,7 @@ function wsit_permission() {
 /**
  * Implements hook_page_alter().
  */
-function wsit_page_alter(&$page) {
+function wsaio_page_alter(&$page) {
 
   // ensure user is logged in and that
   if (user_access('whatserveramion')) {
