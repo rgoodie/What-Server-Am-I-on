@@ -10,7 +10,8 @@ How
 ----
 - Clone the repo into /sites/all/modules/, 
 - Enable the module
-- Name the production and failover server hostnames* [ /admin/config/soc/wsaio ] 
+- Set permissions "See servername in title" and "Administer What Server am I on (WSAIO) options" to the appropirate roles
+- Name the production and failover server hostnames*. Not the URL but the server's hostname! [ /admin/config/soc/wsaio ] 
 
 
 
